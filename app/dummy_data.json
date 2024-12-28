@@ -1,0 +1,98 @@
+[
+	{
+		"timestamps": "27 December 2024 15:40:56",
+		"pm25": 50,
+		"humidity": 54,
+		"temperature": 24.4,
+		"no2": 16,
+		"co2": 6
+	},
+	{
+		"timestamps": "22 December 2024 15:40:56",
+		"pm25": 59,
+		"humidity": 65,
+		"temperature": 23.8,
+		"no2": 19,
+		"co2": 8
+	},
+	{
+		"timestamps": "17 December 2024 15:40:56",
+		"pm25": 60,
+		"humidity": 59,
+		"temperature": 25.0,
+		"no2": 17,
+		"co2": 9
+	},
+	{
+		"timestamps": "12 December 2024 15:40:56",
+		"pm25": 55,
+		"humidity": 68,
+		"temperature": 24.8,
+		"no2": 16,
+		"co2": 10
+	},
+	{
+		"timestamps": "07 December 2024 15:40:56",
+		"pm25": 63,
+		"humidity": 66,
+		"temperature": 24.3,
+		"no2": 19,
+		"co2": 5
+	},
+	{
+		"timestamps": "02 December 2024 15:40:56",
+		"pm25": 53,
+		"humidity": 67,
+		"temperature": 22.1,
+		"no2": 13,
+		"co2": 5
+	},
+	{
+		"timestamps": "27 November 2024 15:40:56",
+		"pm25": 60,
+		"humidity": 53,
+		"temperature": 23.3,
+		"no2": 10,
+		"co2": 9
+	},
+	{
+		"timestamps": "22 November 2024 15:40:56",
+		"pm25": 62,
+		"humidity": 52,
+		"temperature": 23.0,
+		"no2": 16,
+		"co2": 7
+	},
+	{
+		"timestamps": "17 November 2024 15:40:56",
+		"pm25": 63,
+		"humidity": 66,
+		"temperature": 24.1,
+		"no2": 16,
+		"co2": 6
+	},
+	{
+		"timestamps": "12 November 2024 15:40:56",
+		"pm25": 49,
+		"humidity": 51,
+		"temperature": 24.1,
+		"no2": 11,
+		"co2": 7
+	},
+	{
+		"timestamps": "07 November 2024 15:40:56",
+		"pm25": 59,
+		"humidity": 68,
+		"temperature": 22.7,
+		"no2": 17,
+		"co2": 8
+	},
+	{
+		"timestamps": "02 November 2024 15:40:56",
+		"pm25": 38,
+		"humidity": 53,
+		"temperature": 24.4,
+		"no2": 15,
+		"co2": 5
+	}
+]

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemantauan Kualitas Udara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(to bottom, #e6f3ff, #ffffff);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .timestamp {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .main-reading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .pm25-value {
+            font-size: 48px;
+            color: #1a237e;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .quality-label, .quality-status {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .metrics {
+            padding: 20px;
+        }
+
+        .metric-item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .warning-banner {
+            background-color: #ff4444;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .history-chart {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="timestamp">Memuat...</div>
+        </div>
+
+        <div class="main-reading">
+            <div class="pm25-value">-- PM<sub>2.5</sub></div>
+            <div class="quality-label">Kualitas Udara:</div>
+            <div class="quality-status">Memuat...</div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-item">
+                <span>Kelembapan</span>
+                <span>--%</span>
+            </div>
+            <div class="metric-item">
+                <span>Suhu</span>
+                <span>--°C</span>
+            </div>
+            <div class="metric-item">
+                <span>NO₂</span>
+                <span>-- ppm</span>
+            </div>
+            <div class="metric-item">
+                <span>CO</span>
+                <span>-- ppm</span>
+            </div>
+        </div>
+
+        <div class="warning-banner" style="display: none;">
+            Kualitas udara buruk! Harap berhati-hati.
+        </div>
+
+        <div class="history-chart">
+            <canvas id="pm25Chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let pm25Chart;
+
+        const createChart = (ctx, data) => {
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.timestamps, // Tanggal/Waktu
+                    datasets: [{
+                        label: 'PM2.5',
+                        data: data.pm25Values, // Data PM2.5
+                        borderColor: 'rgba(26, 35, 126, 0.8)',
+                        backgroundColor: 'rgba(26, 35, 126, 0.2)',
+                        borderWidth: 2,
+                        fill: true,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tanggal/Waktu',
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'PM2.5',
+                            },
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        };
+
+        const updateChart = (chart, data) => {
+            chart.data.labels = data.timestamps; // Update waktu
+            chart.data.datasets[0].data = data.pm25Values; // Update data PM2.5
+            chart.update();
+        };
+
+        const fetchHistoricalData = () => {
+            fetch('/api/historical-data') // Sesuaikan endpoint dengan API Anda
+                .then(response => response.json())
+                .then(data => {
+                    if (!pm25Chart) {
+                        const ctx = document.getElementById('pm25Chart').getContext('2d');
+                        pm25Chart = createChart(ctx, data);
+                    } else {
+                        updateChart(pm25Chart, data);
+                    }
+                })
+                .catch(error => console.error('Error fetching historical data:', error));
+        };
+
+        const updateData = () => {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('.timestamp').textContent = data.timestamp || 'Tidak tersedia';
+                    document.querySelector('.pm25-value').innerHTML = `${data.pm25} PM<sub>2.5</sub>`;
+                    document.querySelector('.quality-status').textContent = getQualityStatus(data.pm25);
+                    document.querySelector('.metric-item:nth-child(1) span:last-child').textContent = `${data.humidity || '--'}%`;
+                    document.querySelector('.metric-item:nth-child(2) span:last-child').textContent = `${data.temperature || '--'}°C`;
+                    document.querySelector('.metric-item:nth-child(3) span:last-child').textContent = `${data.no2 || '--'} ppm`;
+                    document.querySelector('.metric-item:nth-child(4) span:last-child').textContent = `${data.co || '--'} ppm`;
+
+                    const warningBanner = document.querySelector('.warning-banner');
+                    warningBanner.style.display = data.pm25 > 50 ? 'block' : 'none';
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.querySelector('.quality-status').textContent = 'Gagal memuat data!';
+                });
+        };
+
+        const getQualityStatus = (pm25) => {
+            if (pm25 <= 50) return 'Baik';
+            if (pm25 <= 100) return 'Sedang';
+            return 'Buruk';
+        };
+
+        // Panggil fungsi untuk memuat data real-time dan historis
+        updateData();
+        fetchHistoricalData();
+        setInterval(updateData, 30000); // Refresh setiap 30 detik
+        setInterval(fetchHistoricalData, 300000); // Refresh data historis setiap 5 menit
+    </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemantauan Kualitas Udara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .timestamp {
+            font-size: 1em;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .main-reading {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .pm25-value {
+            font-size: 56px;
+            font-weight: bold;
+        }
+
+        .quality-label {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .metric-item {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .warning-banner {
+            background-color: rgba(255, 68, 68, 0.8);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .history-chart {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+        }
+
+        canvas {
+            width: 100%;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="timestamp">12 November 2024 - 12:30:22</div>
+        </div>
+
+        <div class="main-reading">
+            <div class="pm25-value">46 PM<sub>2.5</sub></div>
+            <div class="quality-label">Kualitas Udara</div>
+            <div class="quality-status">Lumayan</div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-item">
+                <div>Kelembapan</div>
+                <div>60%</div>
+            </div>
+            <div class="metric-item">
+                <div>Suhu</div>
+                <div>23.5°C</div>
+            </div>
+            <div class="metric-item">
+                <div>NO₂</div>
+                <div>16 ppm</div>
+            </div>
+            <div class="metric-item">
+                <div>CO</div>
+                <div>7 ppm</div>
+            </div>
+        </div>
+
+        <div class="history-chart">
+            <canvas id="pm25Chart"></canvas>
+        </div>
+
+        <div class="warning-banner" style="display: block;">
+            Kualitas udara tidak memicu peringatan
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('pm25Chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['12:00', '12:10', '12:20', '12:30', '12:40', '12:50'],
+                datasets: [{
+                    label: 'PM2.5',
+                    data: [45, 50, 47, 46, 48, 49],
+                    backgroundColor: 'rgba(26, 35, 126, 0.8)',
+                    borderColor: 'rgba(26, 35, 126, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Waktu'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'PM2.5'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+vv

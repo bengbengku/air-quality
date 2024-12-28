@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Monitoring Kualitas Udara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #001b80;
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            color: #001b80;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .header {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .pm-value {
+            font-size: 48px;
+            color: #005700;
+            margin: 10px 0;
+        }
+        .quality {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .graph {
+            height: 100px;
+            margin-bottom: 20px;
+            background: #f4f4f4;
+            border-radius: 8px;
+        }
+        .data {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .alert {
+            display: none;
+            font-size: 14px;
+            background: red;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span id="date">30 Desember 2024</span> | <span id="time">12:33:40</span>
+        </div>
+        <div class="pm-value" id="pm-value">46</div>
+        <div class="quality" id="quality">Kualitas Udara<br><strong>Lumayan</strong></div>
+        <div class="graph" id="graph"></div>
+        <div class="data">
+            <div>Kelembapan <span id="humidity">60%</span></div>
+            <div>Suhu <span id="temperature">23.5&deg;C</span></div>
+        </div>
+        <div class="data">
+            <div>NO2 <span id="no2">16</span></div>
+            <div>CO <span id="co">7</span></div>
+        </div>
+        <div class="alert" id="alert">⚠ PERINGATAN: Kualitas udara buruk ⚠</div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+            const time = now.toLocaleTimeString('id-ID');
+
+            document.getElementById('date').textContent = date;
+            document.getElementById('time').textContent = time;
+        }
+
+        function updateData() {
+            // Simulasi data dari sensor (gunakan API/Realtime data pada implementasi nyata)
+            const pmValue = Math.floor(Math.random() * 100); // Random PM2.5 value
+            const humidity = 60; // Ganti dengan data dari sensor DHT22
+            const temperature = 23.5; // Ganti dengan data dari sensor DHT22
+            const no2 = 16; // Ganti dengan data dari sensor MQ135
+            const co = 7; // Ganti dengan data dari sensor MQ135
+
+            document.getElementById('pm-value').textContent = pmValue;
+            document.getElementById('humidity').textContent = ${humidity}%;
+            document.getElementById('temperature').textContent = ${temperature}°C;
+            document.getElementById('no2').textContent = no2;
+            document.getElementById('co').textContent = co;
+
+            const quality = document.getElementById('quality');
+            const alert = document.getElementById('alert');
+
+            if (pmValue > 100) {
+                quality.innerHTML = 'Kualitas Udara<br><strong>Buruk</strong>';
+                alert.style.display = 'block';
+            } else {
+                quality.innerHTML = 'Kualitas Udara<br><strong>Lumayan</strong>';
+                alert.style.display = 'none';
+            }
+        }
+
+        setInterval(updateTime, 1000);
+        setInterval(updateData, 5000);
+
+        // Placeholder untuk grafik
+        const graph = document.getElementById('graph');
+        graph.innerHTML = 'Grafik Placeholder';
+    </script>
+</body>
+</html>

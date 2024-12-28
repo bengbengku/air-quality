@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pemantauan Kualitas Udara</title>
+		<link rel="stylesheet" href="style/style.css" />
+		<script src="https://kit.fontawesome.com/9275390584.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+	<body>
+		<div class="container-app">
+			<header>
+				<div class="badge-header">
+					<span id="current-time"></span>
+					<span id="time-text"></span>
+				</div>
+			</header>
+			<main class="main-container">
+				<div class="main-bg">
+					<div class="air-quality">
+						<span id="result-main">Good</span>
+						<span id="air-index">AQI: 45</span>
+					</div>
+					<div class="chart-icon">
+						<i class="fa-solid fa-chart-simple"></i>
+					</div>
+				</div>
+				<div class="summary">
+					<h4>Terbaru</h4>
+					<div class="summary-box">
+						<div class="box">
+							<div class="box-icon">
+								<i class="fa-solid fa-fan"></i>
+							</div>
+							<div class="box-text">
+								<span>Kelembapan</span>
+								<span id="humidity">0%</span>
+							</div>
+						</div>
+						<div class="box">
+							<div class="box-icon">
+								<i class="fa-solid fa-temperature-low"></i>
+							</div>
+							<div class="box-text">
+								<span>Suhu</span>
+								<span id="temp">0&deg;C</span>
+							</div>
+						</div>
+						<div class="box">
+							<div class="box-icon">
+								<i class="fa-solid fa-tornado"></i>
+							</div>
+							<div class="box-text">
+								<span>NO₂</span>
+								<span id="no2">0</span>
+							</div>
+						</div>
+						<div class="box">
+							<div class="box-icon">
+								<i class="fa-solid fa-cloud"></i>
+							</div>
+							<div class="box-text">
+								<span>CO₂</span>
+								<span id="co2">0</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="analysis-container">
+					<div class="text-filter">
+						<h4>Riwayat Kualitas Udara</h4>
+						<div class="filter-container">
+							<select id="daysFilter">
+								<option value="semua">Semua</option>
+								<option value="5">5 Hari Terakhir</option>
+								<option value="10">10 Hari Terakhir</option>
+								<option value="20">25 Hari Terakhir</option>
+								<option value="30">30 Hari Terakhir</option>
+							</select>
+						</div>
+					</div>
+					<div class="chart-container">
+						<canvas id="environmentChart"></canvas>
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<script src="js/index.js" async defer></script>
+	</body>
+</html>
