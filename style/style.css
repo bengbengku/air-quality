@@ -159,6 +159,7 @@ main {
 
 .warning span:nth-of-type(2) {
   font-weight: 600;
+  color: #4b5563;
 }
 
 .summary-box {
