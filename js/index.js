@@ -53,12 +53,12 @@ function getAirQuality(aqi) {
 		fontSize = "1rem";
 	} else if (aqi <= 100) {
 		airQualityText = "Sedang";
-		color = "yellow";
+		color = "#0891b2";
 		fontSize = "1rem";
 	} else if (aqi <= 200) {
 		airQualityText = "Tidak Sehat";
 		fontSize = "1rem";
-		color = "orange";
+		color = "#ea580c";
 	} else if (aqi <= 300) {
 		airQualityText = "Sangat Tidak Sehat";
 		color = "purple";

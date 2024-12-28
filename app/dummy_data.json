@@ -1,9 +1,9 @@
 [
 	{
 		"timestamps": "27 December 2024 15:40:56",
-		"pm25": 50,
-		"humidity": 54,
-		"temperature": 24.4,
+		"pm25": 200,
+		"humidity": 82,
+		"temperature": 14.4,
 		"no2": 16,
 		"co2": 6
 	},

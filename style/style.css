@@ -73,7 +73,7 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
-  filter: brightness(1.112);
+  filter: brightness(1.312);
   transition: filter 0.3s ease;
 }
 
