@@ -275,9 +275,9 @@ main {
 
 @media (max-width: 768px) {
   .filter-container select {
-    width: 100%;
+    width: 110px;
     padding: 12px;
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
